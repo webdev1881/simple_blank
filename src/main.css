@@ -1,0 +1,42 @@
+.cont {
+  width: 90%;
+  margin: 5px auto;
+}
+
+.btn {
+  width: 20%;
+  min-width: 135px;
+  margin: 7px auto;
+}
+
+.btn-outline-danger {
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+#tbl td {
+  padding: 0.5rem;
+}
+
+
+label {
+  margin-bottom: 0;
+}
+
+.del {
+  border: 1px solid #da2c4a99;
+  display: inline;
+  cursor: pointer;
+  border-radius: 3px;
+  width: 72px;
+  float: right;
+  text-align: center;
+  transition: .5s;
+}
+
+.del:hover {
+  background-color: pink;
+  user-select: none;
+}
+
