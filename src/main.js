@@ -13,14 +13,15 @@ var config = {
   };
   firebase.initializeApp(config);
 
-let counter = 0;
+
+
+let counter = new Date().getTime();
+
 function loadData() {
   let wor = firebase.database().ref('words/')
   wor.on("child_added", function( data ) {
     let wordVal = data.val()
-    //v.log(wordVal)
-    counter++
-    $('table').find('tbody').append( `
+    $('table').find('tbody').prepend( `
       <tr>
         <td>${wordVal.word}</td>
         <td>${wordVal.translate}</td>
@@ -30,27 +31,34 @@ function loadData() {
       </tr>
       ` );
   } ) 
+
 }
 loadData()
 
 
+v.log( $('#word').val() )
+
 $('#save').click( function(){
-  let word = $('#word').val();
-  let trans = $('#trans').val();
-  let comment = $('#comment').val()
+  let word = $('#word').val().toLowerCase();
+  let trans = $('#trans').val().toLowerCase();
+  let comment = $('#comment').val().toLowerCase();
   createLine( word, trans, comment )
   form.reset()
-  $("#tbl tr").remove();
+  $("#.words tr").remove();
   loadData() 
-} )
+});
+
+
 
 function deleteWord (id) {
   let word = firebase.database().ref('words/' + id);
   word.remove()
-  $("#tbl tr").remove();
-}
+  $(".words tr").remove();
+};
 
 
+
+// Delete
 $('body').on('click', '.del', function(){
   let id = $(this).attr("id")
   deleteWord (id);
@@ -58,24 +66,40 @@ $('body').on('click', '.del', function(){
 });
 
 
+
+
 function createLine( word, trans, comment ) {
   counter += 1; 
-  let line = {
-    id: counter,
-    word: word,
-    translate: trans,
-    comment: comment
-  }
+    let line = {
+      id: counter,
+      word: word,
+      translate: trans,
+      comment: comment
+    }
   let db = firebase.database().ref('words/' + counter);
   db.set(line);
 }
 
 
 
+$('.search').keyup( function() {
+  let search = this.value;
+  $('tbody tr').each( function(){
+    if( $(this).text().toLowerCase().indexOf(search.toLowerCase()) !== -1 ) {
+      $(this).show()
+    } else { $(this).hide() }
+  })
+} )
 
 
-
-
+// save enabled
+$('#word').keyup( function() {
+  if( $(this).val().length ) {
+    $('#save').prop('disabled', false)
+  } else {
+    $('#save').prop('disabled', true)
+  }
+})
 
 
 
@@ -87,5 +111,10 @@ function createLine( word, trans, comment ) {
 
 
 //document.getElementsByClassName("cbalink")[0].remove()
+
+
+
+
+
 }
 

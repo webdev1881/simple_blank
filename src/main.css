@@ -40,3 +40,28 @@ label {
   user-select: none;
 }
 
+
+.search {
+  width: 98%;
+  margin: 10px auto;
+}
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .form-group {
+    display: flex;
+    align-items: center;
+  }
+  .cont {
+    width: 98%;
+  }
+  label {
+    width: 100px;
+  }
+}
